@@ -20,8 +20,7 @@ namespace Sniffer.Sniffer
         IPAddress ipMask = new IPAddress(0);
         IPAddress Wildcard = new IPAddress(0);
         IPAddress ipBroadcost = new IPAddress(0);
-
-        Thread? threadCapture;
+        List<IPHostEntry> dns = new List<IPHostEntry>();
 
         List<ShortSRCIPtoDSTIPInfo> allIPSrcToDstaddress = new List<ShortSRCIPtoDSTIPInfo>();
 
@@ -48,7 +47,7 @@ namespace Sniffer.Sniffer
             ICaptureDevice captureDevice = Capturedevice;
             captureDevice.OnPacketArrival += new PacketArrivalEventHandler(Program_OnPacketArrival);
             captureDevice.Open(DeviceModes.Promiscuous, 1000);
-            threadCapture = new Thread(captureDevice.Capture);
+            var threadCapture = new Thread(captureDevice.Capture);
             threadCapture.Start();
         }
 
@@ -222,7 +221,9 @@ namespace Sniffer.Sniffer
                 int count = 0;
                 foreach (var dsct in ips.ipList)
                 {
-                    outString += $"\n  {dsct.iPAddress} Counts: {dsct.count} nsLookup: {NSLookup.getHostname(dsct.iPAddress.ToString())} Ports: ";
+                    string hostnameip = "";
+                    
+                    outString += $"\n  {dsct.iPAddress} Counts: {dsct.count} nsLookup: {getHostNameOnIP(dsct.iPAddress)} Ports: ";
 
                     foreach (var port in dsct.iPorts)
                     {
@@ -243,6 +244,36 @@ namespace Sniffer.Sniffer
 
             return outString;
         }
+
+        string getHostNameOnIP(IPAddress ipAddr)
+        {
+            foreach (var var in dns)
+            {
+                foreach (var ip in var.AddressList)
+                {
+                    if (ip.Address == ipAddr.Address)
+                    {
+                        return var.HostName;
+                    }
+                }
+            }
+            IPHostEntry? hostEntry;
+            try
+            {
+                hostEntry = Dns.GetHostEntry(ipAddr);
+            }
+            catch
+            {
+                hostEntry = new IPHostEntry();
+                hostEntry.AddressList = new IPAddress[] { ipAddr };
+                hostEntry.HostName = "???";
+            }
+
+            dns.Add(hostEntry);
+
+            return hostEntry.HostName;
+        }
+
         void sort()
         {
             foreach (var tmp in allIPSrcToDstaddress)

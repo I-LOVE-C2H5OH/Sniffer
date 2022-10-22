@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nikita\\source\\repos\\Sniffer\\Sniffer\\Sniffer.csproj": {}
+    "C:\\Users\\nikita\\Documents\\GitHub\\Sniffer\\Sniffer\\Sniffer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nikita\\source\\repos\\Sniffer\\Sniffer\\Sniffer.csproj": {
+    "C:\\Users\\nikita\\Documents\\GitHub\\Sniffer\\Sniffer\\Sniffer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nikita\\source\\repos\\Sniffer\\Sniffer\\Sniffer.csproj",
+        "projectUniqueName": "C:\\Users\\nikita\\Documents\\GitHub\\Sniffer\\Sniffer\\Sniffer.csproj",
         "projectName": "Sniffer",
-        "projectPath": "C:\\Users\\nikita\\source\\repos\\Sniffer\\Sniffer\\Sniffer.csproj",
+        "projectPath": "C:\\Users\\nikita\\Documents\\GitHub\\Sniffer\\Sniffer\\Sniffer.csproj",
         "packagesPath": "C:\\Users\\nikita\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nikita\\source\\repos\\Sniffer\\Sniffer\\obj\\",
+        "outputPath": "C:\\Users\\nikita\\Documents\\GitHub\\Sniffer\\Sniffer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nikita\\AppData\\Roaming\\NuGet\\NuGet.Config",
