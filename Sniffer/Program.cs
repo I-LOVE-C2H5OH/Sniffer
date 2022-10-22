@@ -21,19 +21,23 @@ namespace Sniffer
 
             int variable = int.Parse(Console.ReadLine());
 
-            Console.Write("Enter a Network ip Addres");
+            Console.Write("Enter a Network ip Addres\n");
 
             var network = Console.ReadLine();
 
-            Console.Write("Enter a mask this network");
+            Console.Write("Enter a mask this network\n");
 
             var mask = Console.ReadLine();
 
-            var sniffers = new sniffer(allCaptureDevce[variable], network, mask);
+            Console.Write("Enter a TSZPPort or 0\n");
+
+            ushort tszpport = ushort.Parse(Console.ReadLine());
+
+            var sniffers = new sniffer(allCaptureDevce[variable], network, mask, tszpport);
 
             while (true)
             {
-                Console.Write("Enter a stat to show statistic");
+                Console.Write("Enter a stat to show statistic\n");
 
                 var read = Console.ReadLine();
 

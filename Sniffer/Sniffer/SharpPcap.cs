@@ -16,6 +16,8 @@ namespace Sniffer.Sniffer
     {
         bool isRead = false;
 
+        ushort TSZPPort = 0;
+
         IPAddress ipNetwork = new IPAddress(0);
         IPAddress ipMask = new IPAddress(0);
         IPAddress Wildcard = new IPAddress(0);
@@ -29,8 +31,10 @@ namespace Sniffer.Sniffer
             return CaptureDeviceList.Instance;
         }
 
-        public sniffer(ICaptureDevice Capturedevice, string ipSNetwork, string ipMask)
+        public sniffer(ICaptureDevice Capturedevice, string ipSNetwork, string ipMask, ushort TSZPPort)
         {
+            this.TSZPPort = TSZPPort;
+
             this.ipMask = IPAddress.Parse(ipMask);
             this.ipNetwork = IPAddress.Parse(ipSNetwork);
 
@@ -55,8 +59,6 @@ namespace Sniffer.Sniffer
         {
             IPAddress? dstip;
             IPAddress? srcip;
-
-            var testsssss = IPAddress.Parse("192.168.1.1");
             try
             {
                 if (isRead) { return; }
@@ -77,7 +79,7 @@ namespace Sniffer.Sniffer
 
                 srcip = ipV4Packet.SourceAddress;
 
-                if (destinationPort == 37008)
+                if (destinationPort == TSZPPort)
                 {
                     var testTSZP = ParserTzsp.Parse(udpPacket.PayloadData);
 
@@ -99,11 +101,6 @@ namespace Sniffer.Sniffer
                         if (tcpPacket == null && udpPacket == null) { return; }
                         dstip = ipV4Packet.DestinationAddress;
                         srcip = ipV4Packet.SourceAddress;
-
-                        if (srcip.Address == testsssss.Address)
-                        {
-                            
-                        }
                     }
                 }
                 var port = udpPacket != null ? udpPacket.DestinationPort : tcpPacket.DestinationPort;
